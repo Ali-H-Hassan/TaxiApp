@@ -1,54 +1,67 @@
 import './index.css'
 
-export default function Index() {
-  const address = 'Lebanon, Beirut'
-  const contactInfo = {
-    phoneNumber: '961 ** *** ***',
-    email: 'info@****.***'
-  }
+function Footer() {
+  const content = [
+    { title: 'Address', info: ['Lebanon, Beirut'] },
+    { title: 'Contact', info: ['961 ** *** ***', 'info@****.***'] }
+  ]
+  const pages = ['Home', 'Profile', 'Request Drive', 'Careers']
+  const links = ['Privacy Policy', 'Terms of Service', 'Cookies Settings']
 
   return (
     <div className="footer-container">
-      <div className="footer-section">
-        <div className="footer-heading">Address:</div>
-        <div className="footer-content">{address}</div>
-        <div className="footer-heading">Contact:</div>
-        <div className="footer-content">
-          {contactInfo.phoneNumber}
-          <br />
-          {contactInfo.email}
+      <div className="footer-section topSection">
+        {content.map((items, index) => {
+          return (
+            <div className="footer-column " key={index}>
+              <div className="footer-heading">{items.title}</div>
+              {items.info.map((text) => {
+                return (
+                  <div className="footer-content" key={`${index}-${text}`}>
+                    {text}
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+
+        <div className="footer-column">
+          {pages.map((items, index) => {
+            return (
+              <a href="/about-us" className="footer-link" key={index}>
+                {items}
+              </a>
+            )
+          })}
         </div>
       </div>
-      <div className="footer-section">
-        <a href="/about-us" className="footer-link">
-          About Us
-        </a>
-        <a href="/privacy-policy" className="footer-link">
-          Privacy Policy
-        </a>
-        <a href="/careers" className="footer-link">
-          Careers
-        </a>
-        <a href="/terms-and-conditions" className="footer-link">
-          Terms and conditions
-        </a>
-      </div>
-      <div className="footer-section">
-        <div className="footer-copyright">
-          Copyright © 2024 GOMILES. All right reserved.
+
+      <div className="footer-section divider">
+        <div className="footer-column">
+          <div className="footer-group">
+            <div className="footer-copyright">
+              Copyright © 2024 GOMILES. All right reserved.
+            </div>
+          </div>
         </div>
-        <div className="footer-links">
-          <a href="/privacy-policy" className="footer-link">
-            Privacy Policy
-          </a>
-          <a href="/terms-of-service" className="footer-link">
-            Terms of Service
-          </a>
-          <a href="/cookies-settings" className="footer-link">
-            Cookies Settings
-          </a>
+        <div className="footer-divider"></div>
+        <div className="footer-column">
+          <div className="footer-group">
+            <div className="footer-links">
+              {links.map((items, index) => {
+                return (
+                  <a href="/about-us" className="footer-link" key={index}>
+                    {items}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
+
+export default Footer
