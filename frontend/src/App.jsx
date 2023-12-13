@@ -1,14 +1,7 @@
 import './styles/global.css'
-import Footer from './components/footer/index'
 
 function App() {
-  return (
-    <>
-      <div>
-        <Footer />
-      </div>
-    </>
-  )
+  return <></>
 }
 
 export default App
