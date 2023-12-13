@@ -1,0 +1,25 @@
+.status-check-container {
+  width: fit-content;
+  padding: 6px 9px;
+  border-radius: 37px;
+  font-size: 16px;
+  display: flex;
+  flex-flow: row;
+  gap: 9px;
+  align-items: center;
+}
+
+.verified {
+  background: #afffd1;
+  color: black;
+}
+
+.pending {
+  background: #fff8a5;
+  color: black;
+}
+
+.canceled {
+  background: #ffa5a5;
+  color: black;
+}
