@@ -5,8 +5,7 @@
   box-sizing: border-box;
 }
 
-:root {
-}
+
 
 html,
 body {
@@ -16,4 +15,16 @@ body {
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+.green{
+  color: #2ECC71
+}
+
+.flex{
+  display:flex,
+}
+
+.flex-column{
+  flex-direction: column;
 }
