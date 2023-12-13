@@ -19,9 +19,9 @@ export default function Email({ updateFields = () => {}, value }) {
       />
 
       <p className="auth-card-content-p" style={{ marginTop: '15px' }}>
-        Don’t have an account?{' '}
-        <Link to={'/auth/register'} className="underlined">
-          Register here.
+        You have an account?{' '}
+        <Link to={'/auth/login'} className="underlined">
+          Login here.
         </Link>
       </p>
     </div>

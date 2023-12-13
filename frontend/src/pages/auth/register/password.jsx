@@ -66,9 +66,9 @@ export default function password({ updateFields = () => {}, value }) {
         />
 
         <p className="auth-card-content-p" style={{ marginTop: '10px' }}>
-          Don’t have an account?{' '}
-          <Link to={'/auth/register'} className="underlined">
-            Register here.
+          You have an account?{' '}
+          <Link to={'/auth/login'} className="underlined">
+            Login here.
           </Link>
         </p>
       </div>
