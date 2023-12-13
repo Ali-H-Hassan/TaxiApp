@@ -10,7 +10,9 @@ export default function Email({ updateFields = () => {}, value }) {
         placeHolder={'mohamad@gmail.com'}
         value={value}
         onChange={(e) => {
-          updateFields({ email: e.target.value })
+          updateFields((prev) => {
+            return { ...prev, email: e.target.value }
+          })
         }}
         type="email"
         required={true}

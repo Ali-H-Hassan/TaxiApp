@@ -77,3 +77,27 @@
 .user-type > button {
   width: 90px;
 }
+
+.pwd-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.icons-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.default-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  background: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

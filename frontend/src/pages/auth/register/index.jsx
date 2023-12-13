@@ -4,6 +4,7 @@ import Button from '../../../components/buttons'
 import useMultistepForm from './multi-form.jsx'
 import UserType from './user-type.jsx'
 import Email from './email.jsx'
+import Password from './password.jsx'
 
 export default function Index() {
   const [credentials, setCredentials] = useState({ email: '', password: '', type: '' })
@@ -13,8 +14,7 @@ export default function Index() {
     useMultistepForm([
       <UserType updateFields={setCredentials} />,
       <Email updateFields={setCredentials} value={credentials.email} />,
-      <div>hi</div>,
-      <div>2</div>
+      <Password updateFields={setCredentials} value={credentials.password} />
     ])
 
   function handleRegister(e) {
@@ -27,6 +27,15 @@ export default function Index() {
         !credentials.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
       ) {
         setError('Invalid email address.')
+        return
+      } else {
+        setError('')
+      }
+    }
+
+    if (currentStepIndex === 2) {
+      if (credentials.password.length <= 0) {
+        setError('Empty password field.')
         return
       } else {
         setError('')
