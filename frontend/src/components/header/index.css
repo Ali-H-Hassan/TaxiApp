@@ -48,7 +48,7 @@
   background-color: grey;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 500px) {
   .hide {
     display: none !important;
   }
