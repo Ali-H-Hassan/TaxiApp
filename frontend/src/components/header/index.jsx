@@ -15,7 +15,7 @@ export default function index() {
   return (
     <header className="header">
       <Link to={'/'} className="header-logo">
-        <img src="./public/logo.svg" alt="gomiles logo" className="header-logo-img" />
+        <img src="/logo.svg" alt="gomiles logo" className="header-logo-img" />
 
         <span className="header-logo-title hide">Gomiles</span>
       </Link>
