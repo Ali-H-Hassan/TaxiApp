@@ -38,7 +38,7 @@ class UserRideController extends Controller
             $ride->start_location = $data['start_location'];
             $ride->end_location = $data['end_location'];
             $ride->start_time = $data["start_time"];
-            $ride->status = 1;
+            $ride->ride_status_id  = 1;
             $ride->save();
 
             return response()->json([
@@ -98,7 +98,7 @@ class UserRideController extends Controller
                     "start_location" => $request->start_location ?? $data["start_location"],
                     "end_location" => $request->end_location ?? $data["end_location"],
                     "start_time" => $request->start_time ?? $data["start_time"],
-                    "status" => $request->status ?? $data["status"],
+                    "status" => $request->ride_status_id  ?? $data["status"],
                 ]);
                 return response()->json([
                     'status'=>"success",

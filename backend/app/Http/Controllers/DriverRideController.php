@@ -52,7 +52,7 @@ class DriverRideController extends Controller
             $ride = $ride["ride"];
             if($ride && ($data['status'] == 3 || $data["status"] == 4 || $data["status"] == 5)){
                 $ride->update([
-                    "status" => $request->status ?? $data["status"],
+                    "status" => $request->ride_status_id  ?? $data["status"],
                 ]);
 
                 return response()->json([

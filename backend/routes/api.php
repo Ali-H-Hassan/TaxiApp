@@ -5,6 +5,7 @@ use App\Http\Controllers\UserRideController;
 use App\Http\Controllers\DriverRideController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::post('update_info',  [UserController::class, 'updateUserInfo']);
     Route::get('current_user',  [UserController::class, 'getCurrentUser']);
+    Route::post('create_message',  [ChatController::class, 'createMessage']);
+    Route::get('get_message',  [ChatController::class, 'getMessages']);
 });
 
 Route::middleware(['auth:api', 'admin.check'])->group(function () {
