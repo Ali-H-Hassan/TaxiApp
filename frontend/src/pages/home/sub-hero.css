@@ -1,0 +1,26 @@
+.home-page-section-5 {
+  width: 100%;
+  height: 100%;
+  padding: 50px 20px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 90px;
+  text-align: center;
+}
+
+.text-container {
+  text-align: center;
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+@media (max-width: 500px) {
+  .home-page-section-5 {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
