@@ -10,11 +10,9 @@ const HomePageSection5 = () => {
       </div>
 
       <div className="cta-container">
-        <Button
-          label="Sign up"
-          variant="secondary"
-          onClick={() => console.log('Sign up clicked')}
-        />
+        <Button variant="secondary" onClick={() => console.log('Sign up clicked')}>
+          Sign up
+        </Button>
       </div>
     </div>
   )
