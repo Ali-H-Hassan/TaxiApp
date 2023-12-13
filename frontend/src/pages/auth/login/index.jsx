@@ -2,8 +2,20 @@ import '../index.css'
 import { Link } from 'react-router-dom'
 import Input from '../../../components/input'
 import Button from '../../../components/buttons'
+import { useState } from 'react'
 
 export default function Index() {
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  })
+
+  function handleLogin(e) {
+    e.preventDefault()
+
+    console.log(credentials)
+  }
+
   return (
     <main className="auth-page">
       <form className="auth-card">
@@ -13,15 +25,21 @@ export default function Index() {
           <Input
             label={'Email:'}
             placeHolder={'mohamad@gmail.com'}
-            onChange={() => {}}
+            onChange={(e) => {
+              setCredentials({ ...credentials, email: e.target.value })
+            }}
             type="email"
           />
+
           <Input
             label={'Password:'}
             placeHolder={'************'}
-            onChange={() => {}}
+            onChange={(e) => {
+              setCredentials({ ...credentials, password: e.target.value })
+            }}
             type="password"
           />
+
           <p className="auth-card-content-p">
             Don’t have an account?{' '}
             <Link to={'/auth/register'} className="underlined">
@@ -30,7 +48,7 @@ export default function Index() {
           </p>
         </div>
 
-        <Button variant={'primary'} className="auth-card-btn">
+        <Button variant={'primary'} className="auth-card-btn" onClick={handleLogin}>
           Login
         </Button>
       </form>
