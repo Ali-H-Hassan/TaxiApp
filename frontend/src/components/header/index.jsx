@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom'
 import './index.css'
+import store from '../../provider/store'
+import { useEffect, useState } from 'react'
 
 export default function index() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const userStore = store.getState()
+
+    setUser(userStore?.user?.user)
+  }, [user])
+
   return (
     <header className="header">
       <Link to={'/'} className="header-logo">
@@ -14,7 +24,15 @@ export default function index() {
         <Link to={'/'} className="header-nav-link hide">
           Home
         </Link>
-        <Link to={'/'} className="header-nav-link header-nav-link-profile"></Link>
+
+        {user ? (
+          <Link to={'/'} className="header-nav-link header-nav-link-profile"></Link>
+        ) : (
+          <>
+            <>login</>
+            <>signup</>
+          </>
+        )}
       </nav>
     </header>
   )
