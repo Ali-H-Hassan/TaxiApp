@@ -6,17 +6,36 @@
   cursor: pointer;
   text-align: center;
   font-size: 14px;
+  transition-duration: 0.3s;
 }
 
 .primary {
   background: #fcec26;
   color: #333333;
 }
+
 .secondary {
   background: black;
   color: #ffffff;
 }
+
 .danger {
   background: #ff9a9a;
   color: #333333;
+}
+
+.button-container:hover {
+  background: #ffffffbf;
+}
+
+.primary:hover {
+  background: #fcee26bf;
+}
+
+.secondary:hover {
+  background: #000000bf;
+}
+
+.danger:hover {
+  background: #ff9a9abf;
 }
