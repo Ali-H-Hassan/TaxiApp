@@ -1,12 +1,10 @@
 .button-container {
   padding: 9px 15px;
   border-radius: 6px;
-  align-items: center;
-  gap: 10px;
   cursor: pointer;
-  text-align: center;
   font-size: 14px;
   transition-duration: 0.3s;
+  white-space: nowrap;
 }
 
 .primary {

@@ -31,11 +31,11 @@ export default function index() {
         ) : (
           <>
             <Link to={'/auth/login'}>
-              <Button label={'Login'} />
+              <Button>Login</Button>
             </Link>
 
             <Link to={'/auth/register'}>
-              <Button label={'Signup'} variant={'secondary'} />
+              <Button variant={'secondary'}>Register</Button>
             </Link>
           </>
         )}
