@@ -24,7 +24,13 @@ class LoginRequest extends FormRequest
         return [
             //
             'email' => ['required','email:filter'],
-            'password'=>['required','string']
+            'password'=>['required',
+                            'string',
+                            function ($attribute, $value, $fail) {
+                                // Use a closure to perform custom validation
+                                if (empty($value)) {
+                                    $fail('The password field is required.');
+                                }}]
         ];
     }
 }

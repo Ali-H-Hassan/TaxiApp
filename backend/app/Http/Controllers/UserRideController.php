@@ -9,7 +9,7 @@ use App\Models\Ride;
 use App\Manager\RideManager;
 use App\Http\Requests\StatusRequest;
 
-class RideController extends Controller
+class UserRideController extends Controller
 {
     //
     protected $user;
@@ -22,21 +22,6 @@ class RideController extends Controller
     public function create_ride(Request $req){
         try{
             $data = $req->json()->all();
-            $driver_id = $data['driver_id'];
-           
-            $driver_id = User::where('id', $driver_id)->first()->role_id;
-            if($driver_id == null){
-                return response()->json([
-                    'status'=> 'error',
-                    'message'=>"Driver not found"
-                ], 500);
-            }
-            if($driver_id !=2){
-                return response()->json([
-                    "status"=> "error",
-                    "message"=> "Unauthorized"
-                ], 401);
-            }
 
             $rides_count = Ride::where('passenger_id', $this->user->id)
                                     ->where('status', 'requested')
@@ -50,9 +35,10 @@ class RideController extends Controller
             //TODO  no ride can be tn7ajaz after 7days check availability of driver
             $ride = new Ride;
             $ride->passenger_id = $this->user->id;
-            $ride->driver_id = $driver_id;
             $ride->start_location = $data['start_location'];
             $ride->end_location = $data['end_location'];
+            $ride->start_time = $data["start_time"];
+            $ride->status = 1;
             $ride->save();
 
             return response()->json([
@@ -68,27 +54,51 @@ class RideController extends Controller
         }    
     }
 
-    public function getRidesForDriver(Request $request){
-        $data = $request->json()->all();
-        $status = $data['status'];
-        return $this->ride_manager->getRides('driver_id', $this->user->id, $status);
-    }
+    // public function getRidesForDriver(Request $request){
+    //     $data = $request->json()->all();
+    //     $status = $data['status'];
+    //     return $this->ride_manager->getRides('driver_id', $this->user->id, $status);
+    // }
 
     public function getRidesForPassenger(Request $request){
-        $data = $request->json()->all();
-        $status = $data['status'];
-        return $this->ride_manager->getRides('passenger_id', $this->user->id, $status);
+        try{
+            $data = $request->json()->all();
+            return $this->ride_manager->getUserRidesAllOrByStatus('passenger_id', $this->user->id, $data["status"]);
+
+        }catch(\Exception $exception){
+            return response()->json([
+                'status'=>"error",
+                'message'=> $exception->getMessage()
+            ], 500);
+        }
+        
+    }
+
+    public function getSingleRideForPassenger(Request $request){
+        try{
+            $data = $request->json()->all();
+            return $this->ride_manager->getSingleRide('passenger_id', $this->user->id, $data["id"]);
+
+        }catch(\Exception $exception){
+            return response()->json([
+                'status'=>"error",
+                'message'=> $exception->getMessage()
+            ], 500);
+        }
     }
 
     public function updateRidePassenger(Request $request){
         try{
             $data = $request->json()->all();
-            $ride = Ride::find($data['id']);
-            if($ride){
+    
+            $ride = $this->ride_manager->getSingleRide('passenger_id', $this->user->id, $data["id"]);
+            $ride = $ride["ride"];
+            if($ride && ($data['status'] == 1 || $data["status"] == 2)){
                 $ride->update([
-                    "start_location" => $request->quantity ?? $data["start_location"],
-                    "end_location" => $request->quantity ?? $data["end_location"],
-                    "status" => $request->quantity ?? $data["status"],
+                    "start_location" => $request->start_location ?? $data["start_location"],
+                    "end_location" => $request->end_location ?? $data["end_location"],
+                    "start_time" => $request->start_time ?? $data["start_time"],
+                    "status" => $request->status ?? $data["status"],
                 ]);
                 return response()->json([
                     'status'=>"success",
@@ -106,8 +116,5 @@ class RideController extends Controller
                 'message'=> $exception->getMessage()
             ], 500);
         }
-
-
     }
-
 }

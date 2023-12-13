@@ -12,18 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         //
+
+        Schema::create("status_rides", function (Blueprint $table) {
+            $table->id();
+            $table->string("name", 20);
+        });
+
         Schema::create("rides", function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('passenger_id');
-            $table->unsignedBigInteger('driver_id');
-            $table->enum('status', ['requested', 'accepted', 'completed', 'canceled'])->default('requested');
+            $table->unsignedBigInteger('driver_id')->nullable();
+            $table->unsignedBigInteger('ride_status_id');
+            // $table->enum('status', ['requested', 'accepted', 'completed', 'canceled'])->default('requested');
             $table->string('start_location');
             $table->string('end_location');
+            $table->dateTime("start_time");
+            $table->dateTime("end_time")->nullable();
             $table->integer('rating')->nullable();
             $table->timestamps();
 
             $table->foreign('passenger_id')->references('id')->on('users');
             $table->foreign('driver_id')->references('id')->on('users');
+            $table->foreign('ride_status_id')->references('id')->on('status_rides');
         });
     }
 

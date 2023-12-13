@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LoginValidationRequest;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -16,37 +16,58 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
     
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        try{
+            $loginValidationRequest = new LoginValidationRequest;
+            if(!$loginValidationRequest->LoginValidation($request)){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Bad Request',
+                ], 400);
+            }
 
-        $token = Auth::attempt($credentials);
-        if (!$token) {
+            $credentials = $request->only('email', 'password');   
+            $token = Auth::attempt($credentials);
+            if (!$token) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+    
+            $user = Auth::user();
+            return response()->json([
+                    'status' => 'success',
+                    'user' => $user,
+                    'authorisation' => [
+                        'token' => $token,
+                        'type' => 'bearer',
+                    ]
+                ]);
+        }catch(\Exception $exception){
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
-            ], 401);
+            ], 403);
         }
-
-        $user = Auth::user();
-        return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
-
     }
-    public function register(RegistrationRequest $request){
+    
+    public function register(Request $request){
         try{
             $user = new User;
-            if($request->role_id === 3){
+            if($request->role_id != 2 && $request->role_id != 1 ){
                 return response()->json([
                     'status'=>"error",
-                    'message'=> "Unauthorized request"
-                ], 401);
+                    'message'=> "Forbidden request"
+                ], 403);
+            }
+            $existing_email = User::where("email", $request->email)->first()->email;
+            if($existing_email != null){
+                return response()->json([
+                    'status'=>"error",
+                    'message'=> "Email already in use"
+                ], 400);
             }
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
@@ -76,7 +97,7 @@ class AuthController extends Controller
             return response()->json([
                 'status'=> 'error',
                 'message'=> $exception->getMessage(),
-            ]);
+            ], 500);
         }
     }
     public function logout()
