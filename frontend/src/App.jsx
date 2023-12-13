@@ -3,7 +3,7 @@ import './styles/global.css'
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
-import DriverProfile from './pages/home/profile/driver'
+import Feedback from './pages/home/FeedbackForm'
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Header />
 
-        <DriverProfile />
+        <Feedback />
 
         <Routes>
           <Route path="/" index element={<Home />} />
