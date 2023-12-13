@@ -22,7 +22,7 @@ class PassengerCheck
         }
         return response()->json([
             'status' => 'error',
-            'message' => 'Unauthorized',
+            'message' => 'Unauthorized, you are not a passenger',
         ], 403); 
     }
 }
