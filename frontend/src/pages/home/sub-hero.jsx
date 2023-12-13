@@ -1,6 +1,7 @@
 import React from 'react'
 import './sub-hero.css'
 import Button from '../../components/buttons'
+import { Link } from 'react-router-dom'
 
 const HomePageSection5 = () => {
   return (
@@ -9,11 +10,9 @@ const HomePageSection5 = () => {
         <h2>Your journey begins with just a tap!</h2>
       </div>
 
-      <div className="cta-container">
-        <Button variant="secondary" onClick={() => console.log('Sign up clicked')}>
-          Sign up
-        </Button>
-      </div>
+      <Link to={'/'} className="cta-container">
+        <Button variant="secondary">Sign up</Button>
+      </Link>
     </div>
   )
 }

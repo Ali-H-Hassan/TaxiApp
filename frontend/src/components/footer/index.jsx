@@ -5,7 +5,12 @@ function Footer() {
     { title: 'Address', info: ['Lebanon, Beirut'] },
     { title: 'Contact', info: ['961 ** *** ***', 'info@****.***'] }
   ]
-  const pages = ['Home', 'Profile', 'Request Drive', 'Careers']
+  const pages = [
+    { title: 'Home', link: '/' },
+    { title: 'Profile', link: '/u' },
+    { title: 'Request Drive', link: '/request' },
+    { title: 'Careers', link: '/' }
+  ]
   const links = ['Privacy Policy', 'Terms of Service', 'Cookies Settings']
 
   return (
@@ -29,8 +34,8 @@ function Footer() {
         <div className="footer-column">
           {pages.map((items, index) => {
             return (
-              <a href="/about-us" className="footer-link" key={index}>
-                {items}
+              <a href={items.link} className="footer-link" key={index}>
+                {items.title}
               </a>
             )
           })}
