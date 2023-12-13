@@ -10,34 +10,60 @@ export default function Index() {
     password: ''
   })
 
+  const [error, setError] = useState('')
+
   function handleLogin(e) {
     e.preventDefault()
 
+    if (
+      credentials.email.length === 0 ||
+      !credentials.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+    ) {
+      setError('Invalid email address.')
+      return
+    }
+
+    if (credentials.email.length <= 0) {
+      setError('Empty password field.')
+      return
+    }
+
     console.log(credentials)
+
+    setCredentials({
+      email: '',
+      password: ''
+    })
   }
 
   return (
     <main className="auth-page">
-      <form className="auth-card">
+      <form className="auth-card" onSubmit={handleLogin}>
         <h1 className="auth-card-title">Login</h1>
 
         <div className="auth-card-content">
+          <p className="error">{error}</p>
+
           <Input
             label={'Email:'}
             placeHolder={'mohamad@gmail.com'}
+            value={credentials.email}
             onChange={(e) => {
               setCredentials({ ...credentials, email: e.target.value })
             }}
             type="email"
+            required={true}
           />
 
           <Input
             label={'Password:'}
             placeHolder={'************'}
+            value={credentials.password}
             onChange={(e) => {
               setCredentials({ ...credentials, password: e.target.value })
             }}
             type="password"
+            required={true}
           />
 
           <p className="auth-card-content-p">
@@ -48,7 +74,7 @@ export default function Index() {
           </p>
         </div>
 
-        <Button variant={'primary'} className="auth-card-btn" onClick={handleLogin}>
+        <Button variant={'primary'} className="auth-card-btn">
           Login
         </Button>
       </form>

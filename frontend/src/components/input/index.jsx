@@ -3,6 +3,7 @@ import './index.css'
 export default function Index({
   placeHolder,
   label = null,
+  value = '',
   onChange = () => {},
   type = 'text',
   required = true
@@ -14,6 +15,7 @@ export default function Index({
         type={type}
         placeholder={placeHolder}
         className="input"
+        value={value}
         onChange={onChange}
         required={required}
       />

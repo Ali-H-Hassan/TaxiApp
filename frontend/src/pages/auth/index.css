@@ -53,3 +53,9 @@
 .auth-card-btn {
   width: 100%;
 }
+
+.error {
+  width: 100%;
+  text-align: center;
+  color: #ff0000;
+}
