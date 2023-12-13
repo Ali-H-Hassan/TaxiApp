@@ -10,7 +10,7 @@ function Footer() {
 
   return (
     <div className="footer-container">
-      <div className="footer-section topSection">
+      <div className="footer-section top-section">
         {content.map((items, index) => {
           return (
             <div className="footer-column " key={index}>
@@ -37,27 +37,19 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer-section divider">
-        <div className="footer-column">
-          <div className="footer-group">
-            <div className="footer-copyright">
-              Copyright © 2024 GOMILES. All right reserved.
-            </div>
-          </div>
+      <div className="footer-section divider bottom-section footer-links-aling-center">
+        <div className="footer-copyright">
+          Copyright © 2024 GOMILES. All right reserved.
         </div>
-        <div className="footer-divider"></div>
-        <div className="footer-column">
-          <div className="footer-group">
-            <div className="footer-links">
-              {links.map((items, index) => {
-                return (
-                  <a href="/about-us" className="footer-link" key={index}>
-                    {items}
-                  </a>
-                )
-              })}
-            </div>
-          </div>
+
+        <div className="footer-links">
+          {links.map((items, index) => {
+            return (
+              <span className="cc" key={index}>
+                {items}
+              </span>
+            )
+          })}
         </div>
       </div>
     </div>

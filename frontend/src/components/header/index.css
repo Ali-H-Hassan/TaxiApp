@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 350px) {
-  .header-nav-link {
-    display: none;
+  .hide {
+    display: none !important;
   }
 }
