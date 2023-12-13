@@ -23,7 +23,7 @@ export default function Index() {
       return
     }
 
-    if (credentials.email.length <= 0) {
+    if (credentials.password.length <= 0) {
       setError('Empty password field.')
       return
     }
