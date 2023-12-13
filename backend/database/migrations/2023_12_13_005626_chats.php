@@ -12,14 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         //
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
         Schema::create("chats", function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('first_user');
@@ -32,5 +24,13 @@ return new class extends Migration
             $table->foreign('second_user')->references('id')->on('users');
             $table->foreign('sender_id')->references('id')->on('users');
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
     }
 };

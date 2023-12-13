@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number',30);
-            $table->string('img_url')->nullable();
+            $table->text('img_url')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->enum('status',['requested', 'accepted', 'rejected'])->default('requested');
             $table->rememberToken();

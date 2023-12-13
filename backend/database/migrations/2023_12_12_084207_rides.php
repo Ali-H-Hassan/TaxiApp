@@ -22,8 +22,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('passenger_id');
             $table->unsignedBigInteger('driver_id')->nullable();
-            $table->unsignedBigInteger('ride_status_id');
-            // $table->enum('status', ['requested', 'accepted', 'completed', 'canceled'])->default('requested');
+            $table->unsignedBigInteger('status_id');
             $table->string('start_location');
             $table->string('end_location');
             $table->dateTime("start_time");
@@ -33,7 +32,7 @@ return new class extends Migration
 
             $table->foreign('passenger_id')->references('id')->on('users');
             $table->foreign('driver_id')->references('id')->on('users');
-            $table->foreign('ride_status_id')->references('id')->on('status_rides');
+            $table->foreign('status_id')->references('id')->on('status_rides');
         });
     }
 

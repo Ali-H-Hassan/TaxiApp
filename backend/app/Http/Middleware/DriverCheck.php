@@ -17,7 +17,7 @@ class DriverCheck
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if($user && $user->role_id ==2){
+        if($user && $user->role_id ==2 && $user->status == "accepted") {
             return $next($request);
         }
         return response()->json([

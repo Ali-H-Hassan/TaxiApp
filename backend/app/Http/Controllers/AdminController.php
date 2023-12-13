@@ -14,19 +14,21 @@ class AdminController extends Controller
         $this->user = Auth::user();
     }
 
-    public function handleDriverRequest(Request $request){
+    public function handleDriverRequestAndPassengers(Request $request){
         try{
             $data = $request->json()->all();
-            $driver = User::where("id", $data["id"])->first();
+            $user = User::where("id", $data["id"])->first();
 
-            if(!$driver){
+            if(!$user){
                 return response()->json([
                     "status"=> "error",
                     "message" => "Driver request not found"
                 ], 404);
             }
 
-            $driver->status = $data["status"];
+            $user->update([
+                $user->status = $data["status"]
+            ]);
             return response()->json([
                 "status"=> "success",
                 "message" => "Request handled successfully"
@@ -39,10 +41,11 @@ class AdminController extends Controller
         }
     }
 
-    public function getAllDriversRequest(Request $request){
+    public function getAllDriversRequest(){
         try{
-            $data = $request->json()->all();
-            $drivers_list = User::where("id", $data["id"] )->get();
+            $drivers_list = User::where("role_id", 2 )
+                                    ->where("status", "requested")
+                                    ->get();
 
             return response()->json([
                 "status"=> "success",

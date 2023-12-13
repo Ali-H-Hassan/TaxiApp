@@ -17,7 +17,7 @@ class PassengerCheck
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if($user && $user->role_id ==1){
+        if($user && $user->role_id ==1 &&  $user->status == "accepted"){
             return $next($request);
         }
         return response()->json([

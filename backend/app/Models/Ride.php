@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ride extends Model
 {
     use HasFactory;
-    protected $fillable=['passenger_id','driver_id','start_locatin', 'end_location', 'ride_status_id ', 'rating',
+    protected $fillable=['passenger_id','driver_id','start_location', 'end_location', 'ride_status_id ', 'rating',
                             'start_time', 'end_time'];
 
     public function passenger(){

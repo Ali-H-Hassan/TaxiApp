@@ -10,8 +10,8 @@ use App\Models\Ride;
         try{
             if($status !=null){
                 $rides = Ride::where( $role , $user_id)
-                                ->where("status", $status)
-                                ->first();
+                                ->where("status_id", $status)
+                                ->get();
             }else{
                 $rides = Ride::where( $role , $user_id)
                             ->get();
@@ -37,6 +37,29 @@ use App\Models\Ride;
                 "status"=> "success",
                 "ride" => $ride
             ]);
+        }catch(\Exception $exception){
+            return response()->json([
+                "status"=>"error",
+                "message"=> $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getRideById($id){
+        $ride = Ride::where( 'id' , $id)
+                            ->first();
+        return $ride;
+    }
+    public function handleRides($id, $data, $ride){
+        try{
+
+            $ride->update($data);
+
+            return response()->json([
+                "status"=>"success",
+                "message"=>"Successfull request"
+            ]);
+
         }catch(\Exception $exception){
             return response()->json([
                 "status"=>"error",

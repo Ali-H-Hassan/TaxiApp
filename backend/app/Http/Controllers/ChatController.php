@@ -26,7 +26,7 @@ class ChatController extends Controller
                 $chat->first_user = $this->user->id;
                 $chat->second_user = $data["second_user"];
                 $chat->message = $data["message"];
-                $chat->sender_id = $data["sender_id"];
+                $chat->sender_id = $this->user->id;
                 $chat->save();
                 return response()->json([
                     "status"=>"success",

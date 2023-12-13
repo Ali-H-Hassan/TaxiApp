@@ -19,14 +19,6 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try{
-            $loginValidationRequest = new LoginValidationRequest;
-            if(!$loginValidationRequest->LoginValidation($request)){
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Bad Request',
-                ], 400);
-            }
-
             $credentials = $request->only('email', 'password');   
             $token = Auth::attempt($credentials);
             if (!$token) {
@@ -62,7 +54,7 @@ class AuthController extends Controller
                     'message'=> "Forbidden request"
                 ], 403);
             }
-            $existing_email = User::where("email", $request->email)->first()->email;
+            $existing_email = User::where("email", $request->email)->first();
             if($existing_email != null){
                 return response()->json([
                     'status'=>"error",
@@ -78,7 +70,7 @@ class AuthController extends Controller
                 $user->status = "accepted";
             }
             if($user->role_id ===2){
-                $user->status = "pending";
+                $user->status = "requested";
             }
             $user->phone_number = $request->phone_number;
             $user->img_url = $request->img_url;
