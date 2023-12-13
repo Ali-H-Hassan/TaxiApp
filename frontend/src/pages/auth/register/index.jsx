@@ -1,7 +1,7 @@
 import '../index.css'
 import { useState } from 'react'
 import Button from '../../../components/buttons'
-import useMultistepForm from '../../../components/multi-form/core.jsx'
+import useMultistepForm from './multi-form.jsx'
 import UserType from './user-type.jsx'
 
 export default function Index() {
