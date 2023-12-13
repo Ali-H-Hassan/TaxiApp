@@ -7,7 +7,12 @@ import Email from './email.jsx'
 import Password from './password.jsx'
 
 export default function Index() {
-  const [credentials, setCredentials] = useState({ email: '', password: '', type: '' })
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+    type: '',
+    canSubmit: false
+  })
   const [error, setError] = useState('')
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
@@ -19,7 +24,6 @@ export default function Index() {
 
   function handleRegister(e) {
     e.preventDefault()
-    console.log(credentials)
 
     if (currentStepIndex === 1) {
       if (
@@ -43,7 +47,7 @@ export default function Index() {
     }
 
     if (!isLastStep) return next()
-    alert('Successful Account Creation')
+    console.table(credentials)
   }
 
   return (
@@ -61,7 +65,10 @@ export default function Index() {
               Back
             </Button>
 
-            <Button variant={isLastStep ? 'primary' : 'secondary'} type="submit">
+            <Button
+              variant={isLastStep ? 'primary' : 'secondary'}
+              type={isLastStep ? (credentials.canSubmit ? 'submit' : 'button') : 'submit'}
+            >
               {isLastStep ? 'Register' : 'Next'}
             </Button>
           </div>
