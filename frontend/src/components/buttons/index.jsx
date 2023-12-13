@@ -1,7 +1,13 @@
 import React from 'react'
 import './index.css'
 
-const Button = ({ onClick = () => {}, children, variant, className = '' }) => {
+const Button = ({
+  onClick = () => {},
+  children,
+  variant,
+  className = '',
+  type = 'button'
+}) => {
   return (
     <button
       className={`button-container ${className} ${
@@ -14,6 +20,7 @@ const Button = ({ onClick = () => {}, children, variant, className = '' }) => {
               : ''
       }`}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>
