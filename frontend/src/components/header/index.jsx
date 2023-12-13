@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import './index.css'
 import store from '../../provider/store'
 import { useEffect, useState } from 'react'
+import Button from '../buttons'
 
 export default function index() {
   const [user, setUser] = useState(null)
@@ -29,8 +30,13 @@ export default function index() {
           <Link to={'/'} className="header-nav-link header-nav-link-profile"></Link>
         ) : (
           <>
-            <>login</>
-            <>signup</>
+            <Link to={'/auth/login'}>
+              <Button label={'Login'} />
+            </Link>
+
+            <Link to={'/auth/register'}>
+              <Button label={'Signup'} variant={'secondary'} />
+            </Link>
           </>
         )}
       </nav>
