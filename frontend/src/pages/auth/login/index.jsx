@@ -35,26 +35,31 @@ export default function Index() {
 
     setLoading('Loading')
 
-    const res = await axios.post(
-      'http://127.0.0.1:8000/api/login',
-      {
-        email: credentials.email,
-        password: credentials.password
-      },
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
+    try {
+      const res = await axios.post(
+        'http://127.0.0.1:8000/api/login',
+        {
+          email: credentials.email,
+          password: credentials.password
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
         }
+      )
+
+      if (res?.data?.status === 'success') {
+        setlocal('token', res?.data?.authorisation?.token)
+
+        navigate(0)
+      } else {
+        setError('Invalid credentials')
       }
-    )
-
-    if (res?.data?.status === 'success') {
-      setlocal('token', res?.data?.authorisation?.token)
-
-      navigate(0)
-    } else {
+    } catch (error) {
       setError('Invalid credentials')
+      setLoading('')
     }
 
     console.log(res?.data)
