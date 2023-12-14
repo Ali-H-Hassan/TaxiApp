@@ -3,7 +3,7 @@ import './index.css'
 import Button from '../../../components/buttons'
 import DataItem from '../../../components/tablerow'
 import { logoutUserFromWindow } from '../../../util'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../../provider/userSlice'
 
@@ -25,22 +25,25 @@ const UserProfile = () => {
     <div className="dashboard">
       <div className="user-profile-container">
         <div className="profile-info">
-          <img
-            className="profile-image"
-            src="https://via.placeholder.com/135x132"
-            alt="Profile"
-          />
+          {user?.img_url !== '' ? (
+            <img
+              src={user?.img_url}
+              alt={`${user?.first_name} ${user?.last_name}`}
+              className="profile-image"
+            />
+          ) : (
+            <p className="profile-image-p">{user?.email[0]}</p>
+          )}
+
           <div className="profile-details">
             <div className="user-name">
               {user?.first_name} {user?.last_name}
             </div>
             <div className="action-buttons">
-              <Button
-                className="request-ride"
-                onClick={() => console.log('Request ride clicked')}
-              >
-                Request ride
-              </Button>
+              <Link to={'/request'}>
+                <Button className="request-ride">Request ride</Button>
+              </Link>
+
               <Button
                 className="edit-profile"
                 variant="secondary"
