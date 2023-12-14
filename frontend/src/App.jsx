@@ -9,8 +9,8 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import UserPage from './pages/p/user'
 import DriverPage from './pages/p/driver'
-// import Row from './components/tablerow'
-import User from './pages/userProfile'
+import Edit from './pages/edit-profile'
+
 function App() {
   const [user, setUser] = useState(null)
 
@@ -24,15 +24,7 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <User />
-        {/* <Row
-          locationX="Sample Location X"
-          locationY="Sample Location Y"
-          name="Sample Name"
-          date="06-28-2004 12:00 am"
-          status="verified"
-          amount="$23.30"
-        /> */}
+
         {!user ? (
           <Routes>
             <Route path="/" index element={<Home />} />
