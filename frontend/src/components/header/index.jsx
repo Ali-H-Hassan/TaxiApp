@@ -24,11 +24,15 @@ export default function index() {
             to={`/p/${user?.role_id === 1 ? 'user' : 'driver'}`}
             className="header-nav-link header-nav-link-profile"
           >
-            <img
-              src={user?.img_url}
-              alt={`${user?.first_name} ${user?.last_name}`}
-              className="header-nav-link-profile"
-            />
+            {user?.img_url !== '' ? (
+              <img
+                src={user?.img_url}
+                alt={`${user?.first_name} ${user?.last_name}`}
+                className="header-nav-link-profile"
+              />
+            ) : (
+              <p>{user?.email[0]}</p>
+            )}
           </Link>
         ) : (
           <>
