@@ -9,17 +9,36 @@ import Register from './pages/auth/register'
 import UserPage from './pages/p/user'
 import DriverPage from './pages/p/driver'
 import { getlocal } from './util'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './provider/userSlice'
 
 function App() {
-  const [user, setUser] = useState(null)
+  const user = useSelector((state) => state.user.user)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const token = getlocal('token')
 
     if (user === null && token) {
       const runSetUser = async () => {
-        // todo fetch user by token
-        // await setUser(token)
+        const res = await axios.post(
+          'http://127.0.0.1:8000/api/user-data-by-token',
+          {},
+          {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+
+        const userData = res?.data
+
+        if (userData) {
+          dispatch(setUser(userData))
+        }
       }
 
       runSetUser()
@@ -30,6 +49,7 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
+
         {!user ? (
           <Routes>
             <Route path="/" index element={<Home />} />

@@ -1,17 +1,10 @@
 import { Link } from 'react-router-dom'
 import './index.css'
-import store from '../../provider/store'
-import { useEffect, useState } from 'react'
 import Button from '../buttons'
+import { useSelector } from 'react-redux'
 
 export default function index() {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const userStore = store.getState()
-
-    setUser(userStore?.user?.user)
-  }, [user])
+  const user = useSelector((state) => state.user.user)
 
   return (
     <header className="header">
@@ -27,7 +20,13 @@ export default function index() {
         </Link>
 
         {user ? (
-          <Link to={'/'} className="header-nav-link header-nav-link-profile"></Link>
+          <Link to={'/'} className="header-nav-link header-nav-link-profile">
+            <img
+              src={user?.img_url}
+              alt={`${user?.first_name} ${user?.last_name}`}
+              className="header-nav-link-profile"
+            />
+          </Link>
         ) : (
           <>
             <Link to={'/auth/login'}>

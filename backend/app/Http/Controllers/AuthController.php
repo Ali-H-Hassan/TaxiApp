@@ -111,4 +111,8 @@ class AuthController extends Controller
             ]
         ]);
     }
+    public function getCurrentUser()
+    {
+        return response()->json(Auth::user());
+    }
 }

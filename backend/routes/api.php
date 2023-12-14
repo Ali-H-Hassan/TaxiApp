@@ -29,6 +29,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('user-data-by-token', 'getCurrentUser');
 });
 
 Route::middleware('auth:api')->group(function () {
