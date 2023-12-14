@@ -2,8 +2,23 @@ import React from 'react'
 import './index.css'
 import Button from '../../../components/buttons'
 import DataItem from '../../../components/tablerow'
+import { logoutUserFromWindow } from '../../../util'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../../../provider/userSlice'
 
 const UserProfile = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  async function handleLogout() {
+    await logoutUserFromWindow()
+
+    await dispatch(logoutUser)
+
+    navigate('/auth/login')
+  }
+
   return (
     <div className="dashboard">
       <div className="user-profile-container">
@@ -29,11 +44,7 @@ const UserProfile = () => {
               >
                 Edit profile
               </Button>
-              <Button
-                className="logout"
-                variant="danger"
-                onClick={() => console.log('Logout clicked')}
-              >
+              <Button className="logout" variant="danger" onClick={handleLogout}>
                 Logout
               </Button>
             </div>

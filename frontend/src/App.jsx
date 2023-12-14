@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/global.css'
 import Header from './components/header'
@@ -54,8 +54,14 @@ function App() {
           <Route path="/" index element={<Home />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
-          <Route path="/p/user" element={<UserPage />} />
-          <Route path="/p/driver" element={<DriverPage />} />
+
+          {user && (
+            <>
+              <Route path="/p/driver" element={<DriverPage />} />
+              <Route path="/p/user" element={<UserPage />} />
+            </>
+          )}
+
           <Route path="*" element={<>404 page not found</>} />
         </Routes>
 

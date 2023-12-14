@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /**
  * get a value by a key from local storage
  *
@@ -35,7 +37,9 @@ export function removelocal(key) {
  *
  * @returns
  */
-export async function logoutUser() {
+export async function logoutUserFromWindow() {
+  const token = getlocal('token')
+
   await axios.post(
     'http://127.0.0.1:8000/api/logout',
     {},
