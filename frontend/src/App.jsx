@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/global.css'
-import store from './provider/store'
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
@@ -9,14 +8,23 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import UserPage from './pages/p/user'
 import DriverPage from './pages/p/driver'
+import { getlocal } from './util'
 
 function App() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const userStore = store.getState()
+    const token = getlocal('token')
 
-    setUser(userStore?.user?.user)
+    if (user === null && token) {
+      const runSetUser = async () => {
+
+        
+        await setUser(token)
+      }
+
+      runSetUser()
+    }
   }, [user])
 
   return (
