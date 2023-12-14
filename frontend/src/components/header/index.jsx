@@ -20,7 +20,10 @@ export default function index() {
         </Link>
 
         {user ? (
-          <Link to={'/'} className="header-nav-link header-nav-link-profile">
+          <Link
+            to={`/p/${user?.role_id === 1 ? 'user' : 'driver'}`}
+            className="header-nav-link header-nav-link-profile"
+          >
             <img
               src={user?.img_url}
               alt={`${user?.first_name} ${user?.last_name}`}
