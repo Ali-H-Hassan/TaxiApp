@@ -2,10 +2,12 @@ import EffortlessConvenience from './effortlessConvenience'
 import Reliable from './reliable'
 import SubHero from './sub-hero.jsx'
 import Subheroup from './sub-hero-up'
+import Hero from '../request/'
 
 const homePageSection = () => {
   return (
     <div className="home-page-section-1">
+      <Hero />
       <Subheroup />
       <EffortlessConvenience
         title="Effortless Convenience"

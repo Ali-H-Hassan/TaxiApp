@@ -1,7 +1,10 @@
 import React from 'react'
 import './index.css'
-import { MyMap } from './MyMap'
-import axios from 'axios'
+import MyMap from './MyMap.jsx'
+import Input from '../../components/input'
+import Button from '../../components/buttons'
+import { Link } from 'react-router-dom'
+// import axios from 'axios'
 
 const RequestRide = () => {
   // try {
@@ -22,37 +25,26 @@ const RequestRide = () => {
   //     )
   return (
     <div className="request-ride-container">
-      <div className="ride-form">
+      <Link to={'/request'} className="ride-form">
         <div className="title">
-          <span className="title-text">Request a </span>
-          <span className="green-text">ride</span>
-          <span className="title-text"> now</span>
+          Request a
+          <span style={{ color: '#2ecc71' }}>
+            {'  '}ride{'  '}
+          </span>
+          now
         </div>
+
         <div className="form-section">
-          <div className="location-input">
-            <div className="input-container">
-              <div className="input-box">
-                <div className="input-label">Pick up location</div>
-                {/* Add your Input component here if needed */}
-              </div>
-            </div>
-          </div>
-          <div className="destination-input">
-            <div className="input-container">
-              <div className="input-box">
-                <div className="input-label">Destination</div>
-                {/* Add your Input component here if needed */}
-              </div>
-            </div>
-          </div>
+          <Input placeHolder={'Pick up location'} />
+          <Input placeHolder={'Destination'} />
         </div>
+
         <div className="login-button">
-          <div className="button-container">
-            <div className="button-text">Login</div>
-            {/* Add your Button component here if needed */}
-          </div>
+          <Button variant={'primary'} type="button">
+            Request
+          </Button>
         </div>
-      </div>
+      </Link>
       <div className="map-container">
         <MyMap />
       </div>
