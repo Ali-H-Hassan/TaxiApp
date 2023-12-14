@@ -4,17 +4,19 @@ import Button from '../../../components/buttons'
 import DataItem from '../../../components/tablerow'
 import { logoutUserFromWindow } from '../../../util'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../../provider/userSlice'
 
 const UserProfile = () => {
+  const user = useSelector((state) => state.user.user)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   async function handleLogout() {
     await logoutUserFromWindow()
 
-    await dispatch(logoutUser)
+    dispatch(logoutUser)
 
     navigate('/auth/login')
   }
@@ -29,7 +31,9 @@ const UserProfile = () => {
             alt="Profile"
           />
           <div className="profile-details">
-            <div className="user-name">Aboudi</div>
+            <div className="user-name">
+              {user?.first_name} {user?.last_name}
+            </div>
             <div className="action-buttons">
               <Button
                 className="request-ride"
