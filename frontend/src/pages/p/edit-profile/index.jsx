@@ -26,8 +26,6 @@ const EditProfile = () => {
   const handleSave = async () => {
     const token = getlocal('token')
 
-    console.table(userInfo)
-
     await axios.post(
       'http://127.0.0.1:8000/api/update_info',
       { ...userInfo },

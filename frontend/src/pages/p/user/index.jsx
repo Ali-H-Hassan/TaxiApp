@@ -18,7 +18,7 @@ const UserProfile = () => {
 
     dispatch(logoutUser)
 
-    navigate('/auth/login')
+    navigate(0)
   }
 
   return (

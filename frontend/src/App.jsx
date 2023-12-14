@@ -53,18 +53,20 @@ function App() {
 
         <Routes>
           <Route path="/" index element={<Home />} />
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
 
-          {user && (
+          {!user ? (
+            <>
+              <Route path="/auth/register" element={<Register />} />
+              <Route path="*" element={<Login />} />
+            </>
+          ) : (
             <>
               <Route path="/p/driver" element={<DriverPage />} />
               <Route path="/p/user" element={<UserPage />} />
               <Route path="/p/:user_role/edit" element={<EditProfileSection />} />
+              <Route path="*" element={<>404 page not found</>} />
             </>
           )}
-
-          <Route path="*" element={<>404 page not found</>} />
         </Routes>
 
         <Footer />

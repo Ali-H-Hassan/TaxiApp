@@ -9,21 +9,21 @@
   display: inline-flex;
 }
 
-.profile-info {
+.driver-profile-info {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 22px;
   display: inline-flex;
 }
 
-.profile-image {
+.driver-profile-image {
   width: 135px;
   height: 132.39px;
   border-radius: 9999px;
   border: 1px solid;
 }
 
-.text-info {
+.driver-text-info {
   align-self: stretch;
   flex-direction: column;
   justify-content: center;
@@ -44,6 +44,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 15px;
 }
 
 .status {
@@ -55,6 +56,7 @@
   display: flex;
   align-items: center;
 }
+
 .star-rating {
   display: flex;
   gap: 2px;

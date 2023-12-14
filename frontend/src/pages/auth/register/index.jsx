@@ -80,7 +80,7 @@ export default function Index() {
     if (res?.data?.status === 'success') {
       setlocal('token', res?.data?.authorisation?.token)
 
-      navigate(0)
+      navigate('/')
     }
 
     setLoading('')

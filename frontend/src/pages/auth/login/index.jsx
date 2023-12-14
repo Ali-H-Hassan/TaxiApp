@@ -60,7 +60,7 @@ export default function Index() {
       if (res?.data?.status === 'success') {
         setlocal('token', res?.data?.authorisation?.token)
 
-        navigate(0)
+        navigate('/')
       } else {
         setError('Invalid credentials')
       }
@@ -68,8 +68,6 @@ export default function Index() {
       setError('Invalid credentials')
       setLoading('')
     }
-
-    console.log(res?.data)
 
     setCredentials({
       email: '',
