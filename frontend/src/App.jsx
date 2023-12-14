@@ -8,6 +8,7 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import UserPage from './pages/p/user'
 import DriverPage from './pages/p/driver'
+import EditProfileSection from './pages/p/edit-profile'
 import { getlocal } from './util'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
@@ -59,6 +60,7 @@ function App() {
             <>
               <Route path="/p/driver" element={<DriverPage />} />
               <Route path="/p/user" element={<UserPage />} />
+              <Route path="/p/:user_role/edit" element={<EditProfileSection />} />
             </>
           )}
 

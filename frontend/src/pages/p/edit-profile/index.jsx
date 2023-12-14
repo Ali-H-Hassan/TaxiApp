@@ -1,8 +1,6 @@
-// EditProfile.jsx
-import React from 'react'
 import './index.css'
-import Label from '../../components/input'
-import Button from '../../components/buttons'
+import Label from '../../../components/input'
+import Button from '../../../components/buttons'
 
 const EditProfile = () => {
   const handleCancel = () => {

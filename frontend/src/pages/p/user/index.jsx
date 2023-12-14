@@ -44,13 +44,12 @@ const UserProfile = () => {
                 <Button className="request-ride">Request ride</Button>
               </Link>
 
-              <Button
-                className="edit-profile"
-                variant="secondary"
-                onClick={() => console.log('Edit profile clicked')}
-              >
-                Edit profile
-              </Button>
+              <Link to={'/p/user/edit'}>
+                <Button className="edit-profile" variant="secondary">
+                  Edit profile
+                </Button>
+              </Link>
+
               <Button className="logout" variant="danger" onClick={handleLogout}>
                 Logout
               </Button>
