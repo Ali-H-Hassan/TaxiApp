@@ -18,9 +18,8 @@ function App() {
 
     if (user === null && token) {
       const runSetUser = async () => {
-
-        
-        await setUser(token)
+        // todo fetch user by token
+        // await setUser(token)
       }
 
       runSetUser()
