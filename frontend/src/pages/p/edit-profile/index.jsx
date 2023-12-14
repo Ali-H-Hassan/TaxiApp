@@ -2,21 +2,45 @@ import './index.css'
 import Label from '../../../components/input'
 import Button from '../../../components/buttons'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { getlocal } from '../../../util'
 
 const EditProfile = () => {
+  const user = useSelector((state) => state.user.user)
+  const navigate = useNavigate()
+
   const [userInfo, setUserInfo] = useState({
-    email: '',
-    first_name: '',
-    last_name: '',
-    phone_number: ''
+    email: user?.email,
+    first_name: user?.first_name,
+    last_name: user?.last_name,
+    phone_number: user?.phone_number,
+    img_url: user?.img_url
   })
 
   const handleCancel = () => {
-    console.log('Cancelled')
+    navigate(`/p/${user?.role_id === 1 ? 'user' : 'driver'}`)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const token = getlocal('token')
+
     console.table(userInfo)
+
+    await axios.post(
+      'http://127.0.0.1:8000/api/update_info',
+      { ...userInfo },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    navigate(`/p/${user?.role_id === 1 ? 'user' : 'driver'}`)
   }
 
   return (
@@ -75,7 +99,7 @@ const EditProfile = () => {
 
       <img
         className="profile-image"
-        src="https://via.placeholder.com/240x240"
+        src={user?.img_url === '' ? 'https://via.placeholder.com/240x240' : user?.img_url}
         alt="Profile"
       />
     </div>

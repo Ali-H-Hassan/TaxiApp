@@ -25,11 +25,10 @@ class UserController extends Controller
         try{
            
             $this->user->update([
-                "first_name" => $request->first_name ?? $data["first_name"],
-                "last_name" => $request->last_name ?? $data["last_name"],
-                "password" => $request->password ?? $data["password"],
-                "phone_number" => $request->phone_number ?? $data["phone_number"],
-                "img_url" => $request->img_url ?? $data["img_url"]
+                "first_name" => $request->first_name ?? $this->user["first_name"],
+                "last_name" => $request->last_name ?? $this->user["last_name"],
+                "phone_number" => $request->phone_number ?? $this->user["phone_number"],
+                "img_url" => $request->img_url ?? $this->user["img_url"]
             ]);
 
             return response()->json([
