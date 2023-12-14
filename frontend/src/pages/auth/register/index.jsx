@@ -73,7 +73,7 @@ export default function Index() {
     if (res?.data?.status === 'success') {
       setlocal('token', res?.data?.authorisation?.token)
 
-      navigate('/auth/login')
+      navigate(0)
     }
 
     setLoading('')
@@ -85,7 +85,7 @@ export default function Index() {
         <h1 className="auth-card-title">Register</h1>
 
         {error && <p className="error">{error}</p>}
-        {error && <p className="loading">{loading}</p>}
+        {loading && <p className="loading">{loading}</p>}
 
         {step}
 
