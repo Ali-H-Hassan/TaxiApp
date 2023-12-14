@@ -29,3 +29,24 @@ export function setlocal(key, val) {
 export function removelocal(key) {
   window.localStorage.removeItem(key)
 }
+
+/**
+ * removes the user from the fron-end and log him out from the backend
+ *
+ * @returns
+ */
+export async function logoutUser() {
+  await axios.post(
+    'http://127.0.0.1:8000/api/logout',
+    {},
+    {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
+
+  removelocal('token')
+}
