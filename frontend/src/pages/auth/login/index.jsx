@@ -12,7 +12,7 @@ export default function Index() {
 
   const [error, setError] = useState('')
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault()
 
     if (

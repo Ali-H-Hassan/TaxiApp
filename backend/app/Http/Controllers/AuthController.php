@@ -61,8 +61,8 @@ class AuthController extends Controller
                     'message'=> "Email already in use"
                 ], 400);
             }
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
+            $user->first_name = '';
+            $user->last_name = '';
             $user->email = $request->email;
             $user->password = $request->password;
             $user->role_id = $request->role_id;
@@ -72,8 +72,8 @@ class AuthController extends Controller
             if($user->role_id ===2){
                 $user->status = "requested";
             }
-            $user->phone_number = $request->phone_number;
-            $user->img_url = $request->img_url;
+            $user->phone_number = '';
+            $user->img_url = '';
             $user->save();
             $token = Auth::login($user);
             return response()->json([

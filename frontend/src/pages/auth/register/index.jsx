@@ -5,6 +5,9 @@ import useMultistepForm from './multi-form.jsx'
 import UserType from './user-type.jsx'
 import Email from './email.jsx'
 import Password from './password.jsx'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { setlocal } from '../../../util'
 
 export default function Index() {
   const [credentials, setCredentials] = useState({
@@ -14,6 +17,7 @@ export default function Index() {
     canSubmit: false
   })
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
@@ -22,7 +26,7 @@ export default function Index() {
       <Password updateFields={setCredentials} value={credentials.password} />
     ])
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault()
 
     if (currentStepIndex === 1) {
@@ -47,7 +51,27 @@ export default function Index() {
     }
 
     if (!isLastStep) return next()
-    console.table(credentials)
+
+    const res = await axios.post(
+      'http://127.0.0.1:8000/api/register',
+      {
+        email: credentials.email,
+        password: credentials.password,
+        role_id: credentials.type === 'user' ? 1 : 2
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+
+    if (res?.data?.status === 'success') {
+      setlocal('token', res?.data?.authorisation?.token)
+
+      navigate('/auth/login')
+    }
   }
 
   return (
