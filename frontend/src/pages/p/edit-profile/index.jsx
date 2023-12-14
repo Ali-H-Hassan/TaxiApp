@@ -18,19 +18,20 @@ const EditProfile = () => {
         <div className="form-section">
           <Label label="First Name" value="Patrick" />
           <Label label="Last Name" value="Star" />
-          <Label label="Email" value="Example@mail.com" />
           <Label label="Contact Number" value="+961 12 345 678" />
-          <Label label="Password" value="****************" type="password" />
         </div>
+
         <div className="action-buttons">
           <Button className="cancel-button" onClick={handleCancel}>
             Cancel
           </Button>
+
           <Button className="save-button" variant="primary" onClick={handleSave}>
             Save
           </Button>
         </div>
       </div>
+
       <img
         className="profile-image"
         src="https://via.placeholder.com/240x240"
