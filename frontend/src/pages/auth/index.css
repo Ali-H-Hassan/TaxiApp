@@ -54,9 +54,13 @@
   width: 100%;
 }
 
-.error {
+.error,
+.loading {
   width: 100%;
   text-align: center;
+}
+
+.error {
   color: #ff0000;
 }
 

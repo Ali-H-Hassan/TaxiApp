@@ -17,6 +17,7 @@ export default function Index() {
     canSubmit: false
   })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState('')
   const navigate = useNavigate()
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
@@ -52,6 +53,8 @@ export default function Index() {
 
     if (!isLastStep) return next()
 
+    setLoading('Loading')
+
     const res = await axios.post(
       'http://127.0.0.1:8000/api/register',
       {
@@ -72,6 +75,8 @@ export default function Index() {
 
       navigate('/auth/login')
     }
+
+    setLoading('')
   }
 
   return (
@@ -80,6 +85,7 @@ export default function Index() {
         <h1 className="auth-card-title">Register</h1>
 
         {error && <p className="error">{error}</p>}
+        {error && <p className="loading">{loading}</p>}
 
         {step}
 
