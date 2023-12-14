@@ -13,6 +13,7 @@ import { getlocal } from './util'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './provider/userSlice'
+import RequestRide from './pages/request'
 
 function App() {
   const user = useSelector((state) => state.user.user)
@@ -50,7 +51,7 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-
+        <RequestRide />
         <Routes>
           <Route path="/" index element={<Home />} />
 
