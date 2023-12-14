@@ -8,8 +8,16 @@ import Password from './password.jsx'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { setlocal } from '../../../util'
+import { useSelector } from 'react-redux'
 
 export default function Index() {
+  const navigate = useNavigate()
+  const user = useSelector((state) => state.user.user)
+
+  if (user?.email) {
+    navigate('/')
+  }
+
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -18,7 +26,6 @@ export default function Index() {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState('')
-  const navigate = useNavigate()
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([

@@ -50,21 +50,14 @@ function App() {
       <BrowserRouter>
         <Header />
 
-        {!user ? (
-          <Routes>
-            <Route path="/" index element={<Home />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="*" element={<>404 page not found</>} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route path="/" index element={<Home />} />
-            <Route path="/p/user" element={<UserPage />} />
-            <Route path="/p/driver" element={<DriverPage />} />
-            <Route path="*" element={<>404 page not found</>} />
-          </Routes>
-        )}
+        <Routes>
+          <Route path="/" index element={<Home />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/p/user" element={<UserPage />} />
+          <Route path="/p/driver" element={<DriverPage />} />
+          <Route path="*" element={<>404 page not found</>} />
+        </Routes>
 
         <Footer />
       </BrowserRouter>
