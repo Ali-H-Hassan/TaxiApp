@@ -10,7 +10,7 @@ const HomePageSection5 = () => {
         <h2>Your journey begins with just a tap!</h2>
       </div>
 
-      <Link to={'/'} className="cta-container">
+      <Link to={'/auth/register'} className="cta-container">
         <Button variant="secondary">Sign up</Button>
       </Link>
     </div>
