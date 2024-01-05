@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('start_location');
             $table->string('end_location');
             $table->dateTime("start_time");
-            $table->dateTime("end_time")->nullable();
+            $table->string('price');
             $table->integer('rating')->nullable();
             $table->timestamps();
 
