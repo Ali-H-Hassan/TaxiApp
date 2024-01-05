@@ -23,6 +23,15 @@ const EditProfile = () => {
     navigate(`/p/${user?.role_id === 1 ? 'user' : 'driver'}`)
   }
 
+  const handleFileUpload = (e) => {
+    if (!e.target.files[0]) return
+    console.log(URL.createObjectURL(e.target.files[0]))
+
+    setUserInfo((prev) => {
+      return { ...prev, img_url: URL.createObjectURL(e.target.files[0]) }
+    })
+  }
+
   const handleSave = async () => {
     const token = getlocal('token')
 
@@ -95,11 +104,24 @@ const EditProfile = () => {
         </div>
       </div>
 
-      <img
-        className="profile-image"
-        src={user?.img_url === '' ? 'https://via.placeholder.com/240x240' : user?.img_url}
-        alt="Profile"
-      />
+      <div className="profile-image-div">
+        <img
+          className="profile-image"
+          src={
+            userInfo?.img_url || user?.img_url
+              ? userInfo?.img_url || user?.img_url
+              : 'https://via.placeholder.com/240x240'
+          }
+          alt="Profile"
+        />
+
+        <input
+          type="file"
+          className="profile-image-input"
+          accept="image/png, image/jpeg, image/webp, image/jpg"
+          onChange={handleFileUpload}
+        />
+      </div>
     </div>
   )
 }
