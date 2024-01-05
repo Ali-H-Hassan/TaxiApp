@@ -25,10 +25,9 @@ const EditProfile = () => {
 
   const handleFileUpload = (e) => {
     if (!e.target.files[0]) return
-    console.log(URL.createObjectURL(e.target.files[0]))
 
     setUserInfo((prev) => {
-      return { ...prev, img_url: URL.createObjectURL(e.target.files[0]) }
+      return { ...prev, img_url: e.target.files[0] }
     })
   }
 
@@ -38,6 +37,18 @@ const EditProfile = () => {
     await axios.post(
       'http://127.0.0.1:8000/api/update_info',
       { ...userInfo },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    await axios.post(
+      'http://127.0.0.1:8000/api/upload/img',
+      { image: userInfo?.img_url },
       {
         headers: {
           Accept: 'application/json',
@@ -108,8 +119,9 @@ const EditProfile = () => {
         <img
           className="profile-image"
           src={
-            userInfo?.img_url || user?.img_url
-              ? userInfo?.img_url || user?.img_url
+            user?.img_url
+              ? `${import.meta.env.VITE_IMAGE_BASE_PATH}/${user?.img_url}` ||
+                URL.createObjectURL(userInfo?.img_url)
               : 'https://via.placeholder.com/240x240'
           }
           alt="Profile"

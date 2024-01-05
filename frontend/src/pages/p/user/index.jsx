@@ -28,7 +28,7 @@ const UserProfile = () => {
           {user?.img_url !== '' ? (
             <div className="profile-image-wrapper">
               <img
-                src={user?.img_url}
+                src={`${import.meta.env.VITE_IMAGE_BASE_PATH}/${user?.img_url}`}
                 alt={`${user?.first_name} ${user?.last_name}`}
                 className="profile-image-pfp"
               />

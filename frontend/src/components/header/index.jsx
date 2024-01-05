@@ -29,7 +29,7 @@ export default function index() {
             >
               {user?.img_url !== '' ? (
                 <img
-                  src={user?.img_url}
+                  src={`${import.meta.env.VITE_IMAGE_BASE_PATH}/${user?.img_url}`}
                   alt={`${user?.first_name} ${user?.last_name}`}
                   className="header-nav-link-profile"
                 />
