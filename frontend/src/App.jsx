@@ -4,6 +4,7 @@ import './styles/global.css'
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
+import RequestPage from './pages/request'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import UserPage from './pages/p/user'
@@ -61,6 +62,7 @@ function App() {
             </>
           ) : (
             <>
+              <Route path="/request" element={<RequestPage />} />
               <Route path="/p/driver" element={<DriverPage />} />
               <Route path="/p/user" element={<UserPage />} />
               <Route path="/p/:user_role/edit" element={<EditProfileSection />} />

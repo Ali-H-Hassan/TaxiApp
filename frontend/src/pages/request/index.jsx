@@ -23,30 +23,35 @@ const RequestRide = () => {
   //         }
   //       }
   //     )
+
   return (
-    <div className="request-ride-container">
-      <Link to={'/request'} className="ride-form">
-        <div className="title">
-          Request a
-          <span style={{ color: '#2ecc71' }}>
-            {'  '}ride{'  '}
-          </span>
-          now
-        </div>
+    <div className="request-ride-page">
+      <h1>Pick your ride</h1>
 
-        <div className="form-section">
-          <Input placeHolder={'Pick up location'} />
-          <Input placeHolder={'Destination'} />
-        </div>
+      <div className="request-ride-container">
+        <Link to={'/request'} className="ride-form">
+          <div className="title">
+            Request a
+            <span style={{ color: '#2ecc71' }}>
+              {'  '}ride{'  '}
+            </span>
+            now
+          </div>
 
-        <div className="login-button">
-          <Button variant={'primary'} type="button">
-            Request
-          </Button>
+          <div className="form-section">
+            <Input placeHolder={'Pick up location'} />
+            <Input placeHolder={'Destination'} />
+          </div>
+
+          <div className="login-button">
+            <Button variant={'primary'} type="button">
+              Request
+            </Button>
+          </div>
+        </Link>
+        <div className="map-container">
+          <MyMap />
         </div>
-      </Link>
-      <div className="map-container">
-        <MyMap />
       </div>
     </div>
   )
