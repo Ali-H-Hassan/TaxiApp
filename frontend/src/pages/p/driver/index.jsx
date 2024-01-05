@@ -34,7 +34,7 @@ const DriverProfile = () => {
           <img
             src={user?.img_url}
             alt={`${user?.first_name} ${user?.last_name}`}
-            className="driver-profile-image"
+            className="driver-profile-image-pfp"
           />
         ) : (
           <p className="profile-image-p">{user?.email[0]}</p>

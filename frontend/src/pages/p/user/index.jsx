@@ -26,11 +26,13 @@ const UserProfile = () => {
       <div className="user-profile-container">
         <div className="profile-info">
           {user?.img_url !== '' ? (
-            <img
-              src={user?.img_url}
-              alt={`${user?.first_name} ${user?.last_name}`}
-              className="profile-image"
-            />
+            <div className="profile-image-wrapper">
+              <img
+                src={user?.img_url}
+                alt={`${user?.first_name} ${user?.last_name}`}
+                className="profile-image-pfp"
+              />
+            </div>
           ) : (
             <p className="profile-image-p">{user?.email[0]}</p>
           )}
