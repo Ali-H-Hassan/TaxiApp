@@ -84,11 +84,7 @@ export default function RequestRide() {
       <div className="request-ride-container">
         <Link to={'/request'} className="ride-form">
           <div className="title">
-            Request a
-            <span style={{ color: '#2ecc71' }}>
-              {'  '}ride{'  '}
-            </span>
-            now
+            <span style={{ color: '#2ecc71' }}>Details</span>
           </div>
 
           <div className="form-section">
