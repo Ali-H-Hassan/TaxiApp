@@ -1,5 +1,5 @@
 import './index.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Map, Marker } from 'pigeon-maps'
 import Input from '../../components/input'
 import Button from '../../components/buttons'
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 
 export default function RequestRide() {
   const [isStart, setIsStart] = useState(true)
+  const [price, setPrice] = useState(0)
   const [locations, setLocations] = useState({
     start: [],
     end: []
@@ -40,6 +41,42 @@ export default function RequestRide() {
   //       }
   //     )
 
+  useEffect(() => {
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      function deg2rad(deg) {
+        return deg * (Math.PI / 180)
+      }
+
+      const R = 6371 // Earth radius in kilometers
+
+      const dLat = deg2rad(lat2 - lat1)
+      const dLon = deg2rad(lon2 - lon1)
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+          Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2)
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      const distance = R * c // Distance in kilometers
+
+      return distance
+    }
+
+    if (locations.start.length === 2 && locations.end.length === 2) {
+      const distance = calculateDistance(
+        locations.start[0],
+        locations.start[1],
+        locations.end[0],
+        locations.end[1]
+      )
+
+      setPrice(Math.floor(distance * import.meta.env.VITE_PRICE_OF_RIDE_MULIPLIER))
+    }
+  }, [locations.start, locations.end])
+
   return (
     <div className="request-ride-page">
       <h1>Pick your ride</h1>
@@ -55,11 +92,13 @@ export default function RequestRide() {
           </div>
 
           <div className="form-section">
+            <div>Price: ${price}</div>
+
             <div className={isStart && 'active-label'}>
               <Input
                 label={'Start'}
                 placeHolder={'Pick up location'}
-                onClick={() => setIsStart(!isStart)}
+                onClick={() => setIsStart(true)}
                 value={locations?.start}
               />
             </div>
@@ -68,7 +107,7 @@ export default function RequestRide() {
               <Input
                 label={'End'}
                 placeHolder={'Destination'}
-                onClick={() => setIsStart(!isStart)}
+                onClick={() => setIsStart(false)}
                 value={locations?.end}
               />
             </div>
