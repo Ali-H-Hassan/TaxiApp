@@ -5,6 +5,7 @@ export default function Index({
   label = null,
   value = '',
   onChange = () => {},
+  onClick = () => {},
   type = 'text',
   required = true
 }) {
@@ -17,6 +18,7 @@ export default function Index({
         className="input"
         value={value}
         onChange={onChange}
+        onClick={onClick}
         required={required}
       />
     </div>

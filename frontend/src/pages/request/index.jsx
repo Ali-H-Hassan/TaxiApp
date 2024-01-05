@@ -1,12 +1,28 @@
-import React from 'react'
 import './index.css'
-import MyMap from './MyMap.jsx'
+import React, { useState } from 'react'
+import { Map, Marker } from 'pigeon-maps'
 import Input from '../../components/input'
 import Button from '../../components/buttons'
 import { Link } from 'react-router-dom'
 // import axios from 'axios'
 
-const RequestRide = () => {
+export default function RequestRide() {
+  const [isStart, setIsStart] = useState(true)
+  const [locations, setLocations] = useState({
+    start: [],
+    end: []
+  })
+
+  function handleMarkOnMap({ event, latLng }) {
+    setLocations((prev) => {
+      if (isStart) {
+        return { ...prev, start: latLng }
+      } else {
+        return { ...prev, end: latLng }
+      }
+    })
+  }
+
   // try {
   //     const res = await axios.post(
   //       'http://127.0.0.1:8000/api/create_ride',
@@ -39,8 +55,23 @@ const RequestRide = () => {
           </div>
 
           <div className="form-section">
-            <Input placeHolder={'Pick up location'} />
-            <Input placeHolder={'Destination'} />
+            <div className={isStart && 'active-label'}>
+              <Input
+                label={'Start'}
+                placeHolder={'Pick up location'}
+                onClick={() => setIsStart(!isStart)}
+                value={locations?.start}
+              />
+            </div>
+
+            <div className={!isStart && 'active-label'}>
+              <Input
+                label={'End'}
+                placeHolder={'Destination'}
+                onClick={() => setIsStart(!isStart)}
+                value={locations?.end}
+              />
+            </div>
           </div>
 
           <div className="login-button">
@@ -50,11 +81,21 @@ const RequestRide = () => {
           </div>
         </Link>
         <div className="map-container">
-          <MyMap />
+          <Map
+            height={300}
+            defaultCenter={[50.879, 4.6997]}
+            defaultZoom={11}
+            onClick={handleMarkOnMap}
+          >
+            {locations?.start.length !== 0 && (
+              <Marker width={50} anchor={locations?.start} />
+            )}
+            {locations?.end.length !== 0 && (
+              <Marker width={50} anchor={locations?.end} color={`hsl(0deg 39% 70%)`} />
+            )}
+          </Map>
         </div>
       </div>
     </div>
   )
 }
-
-export default RequestRide

@@ -96,6 +96,11 @@
   height: 620px;
 }
 
+.active-label input {
+  outline: #2ecc71;
+  border: 2px solid #2ecc71;
+}
+
 @media (max-width: 600px) {
   .request-ride-container {
     flex-direction: column;
