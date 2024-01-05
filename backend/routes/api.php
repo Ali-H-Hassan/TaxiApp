@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('current_user',  [UserController::class, 'getCurrentUser']);
     Route::post('create_message',  [ChatController::class, 'createMessage']);
     Route::get('get_messages',  [ChatController::class, 'getMessages']);
+    Route::post('upload/img',  [ChatController::class, 'uploadImage']);
 });
 
 Route::middleware(['auth:api', 'admin.check'])->group(function () {

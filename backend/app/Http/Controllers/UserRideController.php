@@ -26,12 +26,12 @@ class UserRideController extends Controller
             $rides_count = Ride::where('passenger_id', $this->user->id)
                                     ->where('status_id', 1)
                                     ->count(); 
-            if ($rides_count >= 3) {
-                return response()->json([
-                    'status'=> 'error',
-                    'message'=> 'Driver has reached the maximum number of rides.'
-                ], 400);
-            }
+            // if ($rides_count >= 3) {
+            //     return response()->json([
+            //         'status'=> 'error',
+            //         'message'=> 'Driver has reached the maximum number of rides.'
+            //     ], 400);
+            // }
             //TODO  no ride can be tn7ajaz after 7days check availability of driver
             $ride = new Ride;
             $ride->passenger_id = $this->user->id;
