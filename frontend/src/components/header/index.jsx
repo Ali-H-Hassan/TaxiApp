@@ -10,8 +10,6 @@ export default function index() {
     <header className="header">
       <Link to={'/'} className="header-logo">
         <img src="/logo.svg" alt="gomiles logo" className="header-logo-img" />
-
-        <span className="header-logo-title hide">Gomiles</span>
       </Link>
 
       <nav className="header-nav">
@@ -20,20 +18,26 @@ export default function index() {
         </Link>
 
         {user ? (
-          <Link
-            to={`/p/${user?.role_id === 1 ? 'user' : 'driver'}`}
-            className="header-nav-link header-nav-link-profile"
-          >
-            {user?.img_url !== '' ? (
-              <img
-                src={user?.img_url}
-                alt={`${user?.first_name} ${user?.last_name}`}
-                className="header-nav-link-profile"
-              />
-            ) : (
-              <p>{user?.email[0]}</p>
-            )}
-          </Link>
+          <>
+            <Link to={'/request'} className="header-nav-link hide">
+              Request
+            </Link>
+
+            <Link
+              to={`/p/${user?.role_id === 1 ? 'user' : 'driver'}`}
+              className="header-nav-link header-nav-link-profile"
+            >
+              {user?.img_url !== '' ? (
+                <img
+                  src={user?.img_url}
+                  alt={`${user?.first_name} ${user?.last_name}`}
+                  className="header-nav-link-profile"
+                />
+              ) : (
+                <p>{user?.email[0]}</p>
+              )}
+            </Link>
+          </>
         ) : (
           <>
             <Link to={'/auth/login'}>
