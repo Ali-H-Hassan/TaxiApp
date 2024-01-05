@@ -59,5 +59,30 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function uploadImage(Request $request){
+        try{
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            $user = Auth::user(); 
+            if ($user && $request->hasFile('image')) {
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images'), $imageName);
+                $user->update(['img_url' => 'images/' . $imageName]);
+        
+                return response()->json(['success' => 'Image uploaded successfully']);
+            }       
+            return response()->json([
+                'status'=> 'error',
+                'message'=> 'Unauthorized',
+            ], 401);
+        }catch(\Exception $exception){
+            return response()->json([
+                'status'=> 'error',
+                'message'=> $exception->getMessage(),
+            ], 500);
+        }
+    }
    
 }
