@@ -5,7 +5,7 @@ import Input from '../../components/input'
 import Button from '../../components/buttons'
 import axios from 'axios'
 import { getlocal } from '../../util'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default function RequestRide() {
@@ -118,53 +118,84 @@ export default function RequestRide() {
       <h1>Pick your ride</h1>
 
       <div className="request-ride-container">
-        <div className="ride-form">
-          <div className="title">
-            <span style={{ color: '#2ecc71' }}>Details</span>
-          </div>
+        {user ? (
+          <div className="ride-form">
+            <div className="title">
+              <span style={{ color: '#2ecc71' }}>Details</span>
+            </div>
 
-          <div>
-            <span style={{ color: 'red' }}>{error}</span>
-          </div>
+            <div>
+              <span style={{ color: 'red' }}>{error}</span>
+            </div>
 
-          <div className="form-section">
-            <div>Price: ${price}</div>
+            <div className="form-section">
+              <div>Price: ${price}</div>
 
-            <div className={isStart ? 'active-label':''}>
+              <div className={isStart ? 'active-label' : ''}>
+                <Input
+                  label={'Start'}
+                  placeHolder={'Pick up location'}
+                  onClick={() => setIsStart(true)}
+                  value={locations?.start}
+                />
+              </div>
+
+              <div className={!isStart ? 'active-label' : ''}>
+                <Input
+                  label={'End'}
+                  placeHolder={'Destination'}
+                  onClick={() => setIsStart(false)}
+                  value={locations?.end}
+                />
+              </div>
+
               <Input
-                label={'Start'}
-                placeHolder={'Pick up location'}
-                onClick={() => setIsStart(true)}
-                value={locations?.start}
+                label={'Time'}
+                placeHolder={'Ride pick up'}
+                onChange={(e) => {
+                  setDate(e.target.value)
+                }}
+                value={date}
+                type="datetime-local"
               />
             </div>
 
-            <div className={!isStart ? 'active-label':''}>
+            <div className="login-button">
+              <Button variant={'primary'} type="button" onClick={handleSubmitRequest}>
+                Request
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Link to={'/request'} className="ride-form">
+            <div className="title">
+              <span style={{ color: '#2ecc71' }}>Details</span>
+            </div>
+
+            <div className="form-section">
+              <div className={isStart ? 'active-label' : ''}>
+                <Input label={'Start'} placeHolder={'Pick up location'} />
+              </div>
+
+              <div className={!isStart ? 'active-label' : ''}>
+                <Input label={'End'} placeHolder={'Destination'} />
+              </div>
+
               <Input
-                label={'End'}
-                placeHolder={'Destination'}
-                onClick={() => setIsStart(false)}
-                value={locations?.end}
+                label={'Time'}
+                placeHolder={'Ride pick up'}
+                value={date}
+                type="datetime-local"
               />
             </div>
 
-            <Input
-              label={'Time'}
-              placeHolder={'Ride pick up'}
-              onChange={(e) => {
-                setDate(e.target.value)
-              }}
-              value={date}
-              type="datetime-local"
-            />
-          </div>
-
-          <div className="login-button">
-            <Button variant={'primary'} type="button" onClick={handleSubmitRequest}>
-              Request
-            </Button>
-          </div>
-        </div>
+            <div className="login-button">
+              <Button variant={'primary'} type="button">
+                Request
+              </Button>
+            </div>
+          </Link>
+        )}
         <div className="map-container">
           <Map
             height={300}
