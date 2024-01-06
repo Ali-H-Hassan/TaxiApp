@@ -3,16 +3,23 @@ import React, { useState, useEffect } from 'react'
 import { Map, Marker } from 'pigeon-maps'
 import Input from '../../components/input'
 import Button from '../../components/buttons'
-import { Link } from 'react-router-dom'
-// import axios from 'axios'
+import axios from 'axios'
+import { getlocal } from '../../util'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function RequestRide() {
+  const user = useSelector((state) => state.user.user)
+  const navigate = useNavigate()
+
+  const [error, setError] = useState('')
   const [isStart, setIsStart] = useState(true)
   const [price, setPrice] = useState(0)
   const [locations, setLocations] = useState({
     start: [],
     end: []
   })
+  const [date, setDate] = useState('')
 
   function handleMarkOnMap({ event, latLng }) {
     setLocations((prev) => {
@@ -24,22 +31,51 @@ export default function RequestRide() {
     })
   }
 
-  // try {
-  //     const res = await axios.post(
-  //       'http://127.0.0.1:8000/api/create_ride',
-  //       {
-  //         passenger_id: credentials.id,
-  //         start_location: credentials.start_location,
-  //         end_location: credentials.end_location,
-  //         start_time:credentials.start_time
-  //       },
-  //       {
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json'
-  //         }
-  //       }
-  //     )
+  async function handleSubmitRequest() {
+    const token = getlocal('token')
+
+    if (
+      (date.length === 0) |
+      (locations?.end.length === 0) |
+      (locations?.start.length === 0)
+    ) {
+      setError('Error: incomplete form')
+      return
+    }
+
+    setError('')
+
+    const res = await axios.post(
+      'http://127.0.0.1:8000/api/create_ride',
+      {
+        start_location: locations?.start.toString(),
+        end_location: locations?.end.toString(),
+        start_time: date,
+        price: price
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    setError('')
+    setPrice(0)
+    setLocations({
+      start: [],
+      end: []
+    })
+    setDate('')
+
+    if (res?.data?.status === 'success') {
+      navigate(`/p/${user?.role_id === 1 ? 'user' : 'driver'}`)
+    } else {
+      setError('An error has occurred.')
+    }
+  }
 
   useEffect(() => {
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -82,9 +118,13 @@ export default function RequestRide() {
       <h1>Pick your ride</h1>
 
       <div className="request-ride-container">
-        <Link to={'/request'} className="ride-form">
+        <div className="ride-form">
           <div className="title">
             <span style={{ color: '#2ecc71' }}>Details</span>
+          </div>
+
+          <div>
+            <span style={{ color: 'red' }}>{error}</span>
           </div>
 
           <div className="form-section">
@@ -107,14 +147,24 @@ export default function RequestRide() {
                 value={locations?.end}
               />
             </div>
+
+            <Input
+              label={'Time'}
+              placeHolder={'Ride pick up'}
+              onChange={(e) => {
+                setDate(e.target.value)
+              }}
+              value={date}
+              type="datetime-local"
+            />
           </div>
 
           <div className="login-button">
-            <Button variant={'primary'} type="button">
+            <Button variant={'primary'} type="button" onClick={handleSubmitRequest}>
               Request
             </Button>
           </div>
-        </Link>
+        </div>
         <div className="map-container">
           <Map
             height={300}

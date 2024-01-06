@@ -38,6 +38,7 @@ class UserRideController extends Controller
             $ride->start_location = $data['start_location'];
             $ride->end_location = $data['end_location'];
             $ride->start_time = $data["start_time"];
+            $ride->price = $data["price"];
             $ride->status_id  = 1;
             $ride->save();
 
