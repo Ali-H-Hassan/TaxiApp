@@ -130,7 +130,7 @@ export default function RequestRide() {
           <div className="form-section">
             <div>Price: ${price}</div>
 
-            <div className={isStart && 'active-label'}>
+            <div className={isStart ? 'active-label':''}>
               <Input
                 label={'Start'}
                 placeHolder={'Pick up location'}
@@ -139,7 +139,7 @@ export default function RequestRide() {
               />
             </div>
 
-            <div className={!isStart && 'active-label'}>
+            <div className={!isStart ? 'active-label':''}>
               <Input
                 label={'End'}
                 placeHolder={'Destination'}
